@@ -3,21 +3,19 @@
 // Run: sf apex run -o space-traders -f scripts/apex/check-agent-token.apex
 // Or in VS Code: SFDX: Execute Anonymous Apex with Editor Contents
 
-HttpRequest req = new HttpRequest();
-req.setEndpoint('callout:SpaceTraders_Agent/my/agent');
-req.setMethod('GET');
-HttpResponse res = new Http().send(req);
+ExternalService.SpaceTradersAgent svc = new ExternalService.SpaceTradersAgent();
 
-Map<String, Object> body = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
-
-if (res.getStatusCode() == 200) {
-    Map<String, Object> agent = (Map<String, Object>) body.get('data');
-    System.debug('AGENT OK: ' + agent.get('symbol')
-        + ' | faction ' + agent.get('startingFaction')
-        + ' | HQ ' + agent.get('headquarters')
-        + ' | credits ' + agent.get('credits')
-        + ' | ships ' + agent.get('shipCount'));
-} else {
+try {
+    ExternalService.SpaceTradersAgent.getMyAgent_Response res = svc.getMyAgent();
+    ExternalService.SpaceTradersAgent_Agent agent = res.Code200.data;
+    System.debug('AGENT OK: ' + agent.symbol
+        + ' | faction ' + agent.startingFaction
+        + ' | HQ ' + agent.headquarters
+        + ' | credits ' + agent.credits
+        + ' | ships ' + agent.shipCount);
+} catch (ExternalService.SpaceTradersAgent.getMyAgent_ResponseException e) {
+    // The spec documents only the 200 response, so error bodies arrive as a raw string.
+    Map<String, Object> body = (Map<String, Object>) JSON.deserializeUntyped(e.defaultResponse);
     Map<String, Object> error = (Map<String, Object>) body.get('error');
     Integer code = Integer.valueOf(error.get('code'));
     String meaning;
@@ -30,6 +28,6 @@ if (res.getStatusCode() == 200) {
     } else {
         meaning = 'Unexpected error.';
     }
-    System.debug('AGENT NOT OK: HTTP ' + res.getStatusCode() + ' | code ' + code
+    System.debug('AGENT NOT OK: HTTP ' + e.responseCode + ' | code ' + code
         + ' | ' + meaning + ' | ' + error.get('message'));
 }

@@ -24,7 +24,7 @@
         <inputParameters>
             <name>token</name>
             <value>
-                <elementReference>SpaceTraders_HTTP_POST_Register_New_Agent.2XX.data.token</elementReference>
+                <elementReference>SpaceTraders_HTTP_POST_Register_New_Agent.201.data.token</elementReference>
                 <inputConfiguratorMode>Resource</inputConfiguratorMode>
             </value>
         </inputParameters>
@@ -36,7 +36,7 @@
         <label>SpaceTraders HTTP GET List factions</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <actionName>SpaceTradersPublic.List factions</actionName>
+        <actionName>SpaceTradersPublic.getFactions</actionName>
         <actionType>externalService</actionType>
         <connector>
             <targetReference>Assign_Factions</targetReference>
@@ -48,7 +48,7 @@
                 <numberValue>20.0</numberValue>
             </value>
         </inputParameters>
-        <nameSegment>SpaceTradersPublic.List factions</nameSegment>
+        <nameSegment>SpaceTradersPublic.getFactions</nameSegment>
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
@@ -57,7 +57,7 @@
         <label>SpaceTraders HTTP POST Register New Agent</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <actionName>SpaceTradersAccount.Register New Agent</actionName>
+        <actionName>SpaceTradersAccount.register</actionName>
         <actionType>externalService</actionType>
         <connector>
             <targetReference>Save_Agent_Token</targetReference>
@@ -72,7 +72,7 @@
                 <elementReference>registerBody</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>SpaceTradersAccount.Register New Agent</nameSegment>
+        <nameSegment>SpaceTradersAccount.register</nameSegment>
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
@@ -87,7 +87,7 @@
             <assignToReference>Factions</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>SpaceTraders_HTTP_GET_List_factions.2XX.data</elementReference>
+                <elementReference>SpaceTraders_HTTP_GET_List_factions.200.data</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -229,7 +229,7 @@
         <fields>
             <name>Choose_Your_Faction</name>
             <dataTypeMappings>
-                <apexClass>ExternalService__SpaceTradersPublic_Listx20factions_OUT_2XX_data</apexClass>
+                <apexClass>ExternalService__SpaceTradersPublic_Faction</apexClass>
                 <typeName>T</typeName>
             </dataTypeMappings>
             <extensionName>flowruntime:datatable</extensionName>
@@ -279,7 +279,7 @@
             <inputParameters>
                 <name>keyField</name>
                 <value>
-                    <complexValue>{&quot;dataType&quot;:&quot;Apex&quot;,&quot;objectType&quot;:&quot;ExternalService__SpaceTradersPublic_Listx20factions_OUT_2XX_data&quot;,&quot;fieldReferences&quot;:[&quot;symbol&quot;],&quot;elementReference&quot;:&quot;Factions_Is_Recruiting_Only&quot;}</complexValue>
+                    <complexValue>{&quot;dataType&quot;:&quot;Apex&quot;,&quot;objectType&quot;:&quot;ExternalService__SpaceTradersPublic_Faction&quot;,&quot;fieldReferences&quot;:[&quot;symbol&quot;],&quot;elementReference&quot;:&quot;Factions_Is_Recruiting_Only&quot;}</complexValue>
                     <complexValueType>ComplexObjectFieldDetails</complexValueType>
                 </value>
             </inputParameters>
@@ -292,7 +292,7 @@
             <inputParameters>
                 <name>columnReferences</name>
                 <value>
-                    <complexValue>{&quot;dataType&quot;:&quot;Apex&quot;,&quot;objectType&quot;:&quot;ExternalService__SpaceTradersPublic_Listx20factions_OUT_2XX_data&quot;,&quot;fieldReferences&quot;:[&quot;name&quot;,&quot;description&quot;,&quot;headquarters&quot;],&quot;elementReference&quot;:&quot;Factions_Is_Recruiting_Only&quot;}</complexValue>
+                    <complexValue>{&quot;dataType&quot;:&quot;Apex&quot;,&quot;objectType&quot;:&quot;ExternalService__SpaceTradersPublic_Faction&quot;,&quot;fieldReferences&quot;:[&quot;name&quot;,&quot;description&quot;,&quot;headquarters&quot;],&quot;elementReference&quot;:&quot;Factions_Is_Recruiting_Only&quot;}</complexValue>
                     <complexValueType>ComplexObjectFieldDetails</complexValueType>
                 </value>
             </inputParameters>
@@ -352,7 +352,7 @@
         <allowPause>true</allowPause>
         <fields>
             <name>Welcome_Message</name>
-            <fieldText>&lt;p&gt;Welcome aboard, {!SpaceTraders_HTTP_POST_Register_New_Agent.2XX.data.agent.symbol}.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your agent is registered with the {!SpaceTraders_HTTP_POST_Register_New_Agent.2XX.data.agent.startingFaction} faction.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Headquarters: {!SpaceTraders_HTTP_POST_Register_New_Agent.2XX.data.agent.headquarters}&lt;/p&gt;&lt;p&gt;Credits: {!SpaceTraders_HTTP_POST_Register_New_Agent.2XX.data.agent.credits}&lt;/p&gt;&lt;p&gt;Ships: {!SpaceTraders_HTTP_POST_Register_New_Agent.2XX.data.agent.shipCount}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your agent lasts until the next server reset. After a reset, you&apos;ll register a new agent here.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Click Finish to start playing.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Welcome aboard, {!SpaceTraders_HTTP_POST_Register_New_Agent.201.data.agent.symbol}.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your agent is registered with the {!SpaceTraders_HTTP_POST_Register_New_Agent.201.data.agent.startingFaction} faction.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Headquarters: {!SpaceTraders_HTTP_POST_Register_New_Agent.201.data.agent.headquarters}&lt;/p&gt;&lt;p&gt;Credits: {!SpaceTraders_HTTP_POST_Register_New_Agent.201.data.agent.credits}&lt;/p&gt;&lt;p&gt;Ships: {!SpaceTraders_HTTP_POST_Register_New_Agent.201.data.agent.shipCount}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Your agent lasts until the next server reset. After a reset, you&apos;ll register a new agent here.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Click Finish to start playing.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <styleProperties>
                 <verticalAlignment>
@@ -376,7 +376,7 @@
     <status>Active</status>
     <variables>
         <name>currentItem_Factions_Is_Recruiting_Only</name>
-        <apexClass>ExternalService__SpaceTradersPublic_Listx20factions_OUT_2XX_data</apexClass>
+        <apexClass>ExternalService__SpaceTradersPublic_Faction</apexClass>
         <dataType>Apex</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -384,7 +384,7 @@
     </variables>
     <variables>
         <name>Factions</name>
-        <apexClass>ExternalService__SpaceTradersPublic_Listx20factions_OUT_2XX_data</apexClass>
+        <apexClass>ExternalService__SpaceTradersPublic_Faction</apexClass>
         <dataType>Apex</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
@@ -392,7 +392,7 @@
     </variables>
     <variables>
         <name>registerBody</name>
-        <apexClass>ExternalService__SpaceTradersAccount_Registerx20Newx20Agent_IN_body</apexClass>
+        <apexClass>ExternalService__SpaceTradersAccount_register_IN_body</apexClass>
         <dataType>Apex</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -400,7 +400,7 @@
     </variables>
     <variables>
         <name>selectedFaction</name>
-        <apexClass>ExternalService__SpaceTradersPublic_Listx20factions_OUT_2XX_data</apexClass>
+        <apexClass>ExternalService__SpaceTradersPublic_Faction</apexClass>
         <dataType>Apex</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
